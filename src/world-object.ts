@@ -88,6 +88,7 @@ export class WorldObject {
 
 	public destroy(): void {
 		this.shutdown();
+		this._coroutines.clear();
 		this.world.removeWorldObject(this);
 	}
 
@@ -132,7 +133,7 @@ export class WorldObject {
 	private simpleHash(str: string): string {
 		let hash = 5381;
 		for (let i = 0; i < str.length; i++) {
-			hash = ((hash << 5) + hash) + str.charCodeAt(i);
+			hash = (hash << 5) + hash + str.charCodeAt(i);
 		}
 		return hash.toString();
 	}

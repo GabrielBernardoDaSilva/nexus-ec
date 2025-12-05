@@ -4,11 +4,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-A lightweight, performant Entity-Component-System (ECS) library for JavaScript/TypeScript, featuring signals for event-driven architecture and coroutines for asynchronous behaviors. Perfect for games, simulations, and reactive applications.
+A lightweight, performant Entity-Component (EC) library for JavaScript/TypeScript, featuring signals for event-driven architecture and coroutines for asynchronous behaviors. Perfect for games, simulations, and reactive applications.
 
 ## ✨ Features
 
-- **Entity-Component-System (ECS)**: Decouple data and logic for scalable architectures.
+- **Entity-Component (EC)**: Decouple data and logic for scalable architectures.
 - **Signal System**: Godot-inspired named signals for flexible event handling.
 - **Coroutines**: Built-in support for asynchronous tasks with yielding.
 - **TypeScript First**: Full type safety and IntelliSense support.
@@ -28,12 +28,12 @@ bun add nexus-ec
 ## 📖 Quick Start
 
 ```typescript
-import { World, Behaviour, Signal } from 'nexus-ec';
+import { World, Behaviour, Signal } from "nexus-ec";
 
 // Define a custom Behaviour
 class PlayerBehaviour extends Behaviour {
   public override startup(): void {
-    console.log('Player ready!');
+    console.log("Player ready!");
   }
 
   public override update(deltaTime: number): void {
@@ -57,34 +57,41 @@ world.shutdown();
 ## 🎯 Key Concepts
 
 ### World
+
 The central hub managing all entities and signals.
 
 ### WorldObject
+
 Entities that hold behaviours and can form hierarchies.
 
 ### Behaviour
+
 Components that define logic (startup, update, shutdown).
 
 ### Signals
+
 Event system for decoupled communication:
+
 ```typescript
 // Emit a signal
-world.emitSignal('playerDied', { score: 100 });
+world.emitSignal("playerDied", { score: 100 });
 
 // Listen to a signal
-world.connectSignal('playerDied', (data) => {
-  console.log('Game Over!', data.score);
+world.connectSignal("playerDied", (data) => {
+  console.log("Game Over!", data.score);
 });
 ```
 
 ### Coroutines
+
 Asynchronous tasks with yielding:
+
 ```typescript
 class MyBehaviour extends Behaviour {
   public *myCoroutine() {
-    console.log('Starting...');
+    console.log("Starting...");
     yield new WaitAmountOfSeconds(2);
-    console.log('Done!');
+    console.log("Done!");
   }
 
   public override startup(): void {
@@ -92,14 +99,6 @@ class MyBehaviour extends Behaviour {
   }
 }
 ```
-
-## 📚 API Reference
-
-- [World](https://github.com/yourusername/nexus-ec/wiki/World)
-- [WorldObject](https://github.com/yourusername/nexus-ec/wiki/WorldObject)
-- [Behaviour](https://github.com/yourusername/nexus-ec/wiki/Behaviour)
-- [Signal](https://github.com/yourusername/nexus-ec/wiki/Signal)
-- [Coroutine](https://github.com/yourusername/nexus-ec/wiki/Coroutine)
 
 ## 🛠️ Development
 
