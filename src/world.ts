@@ -170,10 +170,14 @@ export class World {
 
 		return childDebugInfos;
 	}
+
 	public debug(): WorldDebugInfo {
 		const worldObjects: WorldDebugInfo["worldObjects"] = [];
+
 		for (const wo of this._worldObjects.values()) {
-			World.worldObjectToDebugInfo(wo);
+			const res = World.worldObjectToDebugInfo(wo);
+			if (wo.parent) continue;
+			worldObjects.push(res);
 		}
 
 		const signals = Array.from(this._signals.entries()).map(

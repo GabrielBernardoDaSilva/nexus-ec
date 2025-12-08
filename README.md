@@ -111,6 +111,12 @@ bun run build
 
 # Watch mode
 bun run dev
+
+# Run tests
+bun run test
+
+# Run tests once
+bun run test:run
 ```
 
 ## 🤝 Contributing
