@@ -6,6 +6,7 @@ import type { Task } from "./coroutine";
 export type WorldDebugInfo = {
 	worldObjects: {
 		id: string;
+		name: string;
 		isActive: boolean;
 		children: WorldDebugInfo["worldObjects"] | null;
 		behaviours: {
@@ -148,6 +149,7 @@ export class World {
 		if (children.length === 0)
 			return {
 				id: wo.id,
+				name: wo.name,
 				children: null,
 				isActive: wo.isActive,
 				behaviours: wo.behaviours.map((behaviour) => ({
@@ -160,6 +162,7 @@ export class World {
 		);
 		const childDebugInfos: WorldDebugInfo["worldObjects"][number] = {
 			id: wo.id,
+			name: wo.name,
 			children: childInfos,
 			isActive: wo.isActive,
 			behaviours: wo.behaviours.map((behaviour) => ({

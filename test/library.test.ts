@@ -177,7 +177,7 @@ describe("Nexus-EC Library", () => {
 			}
 			const info = world.debug();
 
-			console.log("Debug info:", JSON.stringify(info)); // Add this to see the output
+			console.log("Debug info:", info); // Add this to see the output
 
 			const debugObj = {
 				sizeInBytes: info.sizeInBytes,
@@ -185,6 +185,7 @@ describe("Nexus-EC Library", () => {
 					{
 						isActive: true,
 						id: wo!.id,
+						name: wo!.name,
 						behaviours: [
 							{
 								name: "TestBehaviour",
@@ -195,6 +196,7 @@ describe("Nexus-EC Library", () => {
 							{
 								isActive: true,
 								id: wo1!.id,
+								name: wo1!.name,
 								behaviours: [
 									{
 										name: "TestBehaviour",
