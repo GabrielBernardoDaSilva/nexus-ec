@@ -47,7 +47,7 @@ export class World {
 	public createWorldObject<T extends Behaviour>(
 		...args: (new (
 			...args: any[]
-		) => T)[]
+		) => Behaviour)[]
 	): WeakRef<WorldObject> {
 		const worldObject = new WorldObject(new WeakRef(this));
 		for (const behaviour of args) {
