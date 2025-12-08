@@ -9,6 +9,9 @@ export class Signal {
 	public emit(...args: unknown[]): void {
 		this._subscribers.forEach((callback) => callback(...args));
 	}
+	public get subscriberCount(): number {
+		return this._subscribers.size;
+	}
 }
 
 export abstract class SignalHandler {}

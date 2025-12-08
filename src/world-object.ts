@@ -166,4 +166,7 @@ export class WorldObject {
 	public get coroutines(): Readonly<SetIterator<Coroutine>> {
 		return Object.freeze(this._coroutines.values());
 	}
+	public get behaviours(): Readonly<Behaviour[]> {
+		return Object.freeze(this._behaviours);
+	}
 }

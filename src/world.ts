@@ -3,6 +3,23 @@ import { Signal, SignalHandler } from "./signal";
 import type { Behaviour } from "./behaviour";
 import type { Task } from "./coroutine";
 
+export type WorldDebugInfo = {
+	worldObjects: {
+		id: string;
+		isActive: boolean;
+		children: WorldDebugInfo["worldObjects"] | null;
+		behaviours: {
+			name: string;
+			isEnabled: boolean;
+		}[];
+	}[];
+	worldSignals: {
+		name: string;
+		subscriberCount: number;
+	}[];
+	sizeInBytes: number;
+};
+
 export class World {
 	private readonly _worldObjects: Map<string, WorldObject>;
 	private readonly _signals: Map<string, Signal> = new Map();
@@ -122,5 +139,54 @@ export class World {
 				}
 			});
 		});
+	}
+
+	private static worldObjectToDebugInfo(
+		wo: WorldObject,
+	): WorldDebugInfo["worldObjects"][number] {
+		const children = wo.children;
+		if (children.length === 0)
+			return {
+				id: wo.id,
+				children: null,
+				isActive: wo.isActive,
+				behaviours: wo.behaviours.map((behaviour) => ({
+					name: behaviour.constructor.name,
+					isEnabled: behaviour.isEnabled,
+				})),
+			};
+		const childInfos: WorldDebugInfo["worldObjects"] | null = children.map(
+			(child) => World.worldObjectToDebugInfo(child),
+		);
+		const childDebugInfos: WorldDebugInfo["worldObjects"][number] = {
+			id: wo.id,
+			children: childInfos,
+			isActive: wo.isActive,
+			behaviours: wo.behaviours.map((behaviour) => ({
+				name: behaviour.constructor.name,
+				isEnabled: behaviour.isEnabled,
+			})),
+		};
+
+		return childDebugInfos;
+	}
+	public debug(): WorldDebugInfo {
+		const worldObjects: WorldDebugInfo["worldObjects"] = [];
+		for (const wo of this._worldObjects.values()) {
+			World.worldObjectToDebugInfo(wo);
+		}
+
+		const signals = Array.from(this._signals.entries()).map(
+			([name, signal]) => ({
+				name,
+				subscriberCount: signal.subscriberCount,
+			}),
+		);
+
+		return {
+			worldObjects,
+			worldSignals: signals,
+			sizeInBytes: JSON.stringify(this).length,
+		};
 	}
 }
