@@ -28,6 +28,10 @@ export class World {
 		this._worldObjects = new Map<string, WorldObject>();
 	}
 
+	/**
+	 * @deprecated used previous on initialization phase, now all world objects are started immediately after creation
+	 * but this were moved to object creation phase
+	 * */
 	public startup(): void {
 		this._worldObjects.forEach((worldObject) => worldObject.startup());
 	}
@@ -44,7 +48,7 @@ export class World {
 		this._worldObjects.forEach((worldObject) => worldObject.shutdown());
 	}
 
-	public createWorldObject<T extends Behaviour>(
+	public createWorldObject(
 		...args: (new (
 			...args: any[]
 		) => Behaviour)[]
@@ -54,6 +58,7 @@ export class World {
 			worldObject.addBehaviour(behaviour);
 		}
 		this._worldObjects.set(worldObject.id, worldObject);
+		worldObject.startup();
 		return new WeakRef(worldObject);
 	}
 

@@ -73,11 +73,13 @@ Components that define logic (startup, update, shutdown).
 Event system for decoupled communication:
 
 ```typescript
+class PlayerDied extends SignalHandler{}
+
 // Emit a signal
-world.emitSignal("playerDied", { score: 100 });
+world.emitSignal(PlayerDied, { score: 100 });
 
 // Listen to a signal
-world.connectSignal("playerDied", (data) => {
+world.connectSignal(PlayerDied", (data) => {
   console.log("Game Over!", data.score);
 });
 ```

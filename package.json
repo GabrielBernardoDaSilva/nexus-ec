@@ -1,6 +1,6 @@
 {
 	"name": "nexus-ec",
-	"version": "1.2.7",
+	"version": "1.2.9",
 	"description": "An EC library with signals and coroutines",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
