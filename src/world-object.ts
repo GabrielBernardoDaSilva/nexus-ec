@@ -2,9 +2,10 @@ import type { Behaviour } from "./behaviour";
 import { Coroutine, type Task } from "./coroutine";
 import { Transform } from "./transform";
 import type { World } from "./world";
+import { v4 as uuid } from "uuid";
 
 export class WorldObject {
-	private readonly _id: string = crypto.randomUUID();
+	private readonly _id: string = uuid();
 	private _name: string = "WorldObject";
 	private readonly _behaviours: Behaviour[] = [];
 	private readonly _world: WeakRef<World>;
